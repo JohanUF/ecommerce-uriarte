@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { Menu } from 'antd';
+import CartWidget from '../CartWidget/CartWidget.jsx'
+import { Flex } from 'antd';
+import './NavBar.css'
 
 const items = [
   {
@@ -26,7 +29,14 @@ const NavBar = () => {
       console.log('click ', e);
       setCurrent(e.key);
     };
-    return <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />;
+    return (
+        <>
+            <Flex>
+                <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} className='menu'/>
+                <CartWidget/>
+            </Flex>
+        </>
+    )
 }
 
 export default NavBar
