@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Menu } from 'antd';
 import CartWidget from '../CartWidget/CartWidget.jsx'
 import { Flex } from 'antd';
+import { Link } from 'react-router-dom'
 import './NavBar.css'
 
 const items = [
@@ -18,7 +19,9 @@ const items = [
     key: 'news'
   },
   {
-    label: 'Ofertas',
+    label: (
+      <Link to='sales'>Ofertas</Link>
+    ),
     key: 'sales'
   },
 ];
