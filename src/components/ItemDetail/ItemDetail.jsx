@@ -1,6 +1,9 @@
 import React from 'react'
 import { Card, Descriptions, Flex } from 'antd'
 import { Link } from 'react-router-dom'
+import AddItemButton from '../AddItemButton/AddItemButton';
+import ItemQuantitySelector from '../ItemQuantitySelector/ItemQuantitySelector';
+import Description from '../Description/Description';
 const { Meta } = Card;
 
 const ItemDetail = ({item}) => {
@@ -45,8 +48,8 @@ const ItemDetail = ({item}) => {
             />
           }
           actions={[
-            <div>Agregar al carrito</div>,
-            <Link to='/'>Volver</Link>
+            <ItemQuantitySelector />,
+            <AddItemButton item={itemDetail} />
           ]}
         >
           <Meta
@@ -54,7 +57,7 @@ const ItemDetail = ({item}) => {
             description={item.description}
           />
         </Card>
-        <Descriptions title="Detalle" bordered items={itemDetail}/>
+        <Description item={itemDetail} />
       </Flex>
     </>
   )
