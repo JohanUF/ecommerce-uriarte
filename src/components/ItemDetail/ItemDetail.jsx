@@ -1,12 +1,15 @@
-import React, { useRef } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import { Button, Card, Flex } from 'antd'
 import AddItemButton from '../AddItemButton/AddItemButton';
 import ItemQuantitySelector from '../ItemQuantitySelector/ItemQuantitySelector';
 import Description from '../Description/Description';
+import { CartContext } from '../../context/cartContext';
+import { Link } from 'react-router-dom';
 const { Meta } = Card;
 
 const ItemDetail = ({item}) => {
-  //const [ selectedItem, setSelectedItem]
+  const { cart } = useContext(CartContext)
+  const [ itemAdded, setItemAdded ] = useState({})
 
   const quantityRef = useRef(1)
 
@@ -31,7 +34,7 @@ const ItemDetail = ({item}) => {
           }
           actions={[
             <ItemQuantitySelector handleUpdateQuantity={handleUpdateQuantity} />,
-            <AddItemButton getItem={getUpdatedItem} />
+            <AddItemButton getItem={getUpdatedItem} setItemAdded={setItemAdded}/>
           ]}
         >
           <Meta
@@ -41,7 +44,7 @@ const ItemDetail = ({item}) => {
         </Card>
         <Flex vertical gap={'large'}>
           <Description item={item} />
-          <Button type="primary">Finalizar compra</Button>
+          {itemAdded?.quantity > 0 ? <Link to={'/cart'}><Button type="primary">Finalizar compra</Button></Link> : <></>}
         </Flex>
       </Flex>
     </>

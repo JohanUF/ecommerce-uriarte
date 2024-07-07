@@ -22,8 +22,8 @@ const Cart = () => {
           <div>
             <Flex vertical gap={'middle'}>
               <b>Total: S/ {total}</b>
-              <Button type="primary" onClick={() => {}}>Finalizar compra</Button>
-              <Button type="primary" danger onClick={() => {clear()}}>Vaciar carrito</Button>
+              <Link to={'/checkout'}><Button type="primary">Finalizar compra</Button></Link>
+              <Link><Button type="primary" danger onClick={() => {clear()}}>Vaciar carrito</Button></Link>
             </Flex>
           </div>}
         bordered

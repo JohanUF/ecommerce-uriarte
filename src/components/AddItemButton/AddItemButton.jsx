@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { Button } from 'antd';
 import { CartContext } from '../../context/cartContext';
 
-const AddItemButton = ({ getItem }) => {
+const AddItemButton = ({ getItem, setItemAdded }) => {
   const { addItem, updateItem, isInCart } = useContext(CartContext)
   
   const handleClick = () => {
@@ -14,6 +14,8 @@ const AddItemButton = ({ getItem }) => {
     else {
       addItem(item)
     }
+
+    setItemAdded(item)
   }
 
   return (
