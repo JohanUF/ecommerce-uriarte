@@ -3,13 +3,14 @@ import ItemListContainer from './components/ItemListContainer/ItemListContainer'
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailContainer';
 import { Typography } from 'antd'
-import { CartContext } from './context/cartContext';
+import { CartComponentContext } from './context/cartContext';
+import Cart from './components/Cart/Cart';
 const { Title } = Typography
 
 function App() {
   return (
     <>
-      <CartContext>
+      <CartComponentContext>
         <BrowserRouter>
           <Title>
             <Link to={'/'}>PC Componentes</Link>
@@ -19,9 +20,10 @@ function App() {
             <Route path='/' element={<ItemListContainer greeting='Nuestros Productos' />}></Route>
             <Route path='/category/:categoryId' element={<ItemListContainer />}></Route>
             <Route path='/item/:itemId' element={<ItemDetailContainer />}></Route>
+            <Route path='/cart' element={<Cart />}></Route>
           </Routes>
         </BrowserRouter>
-      </CartContext>
+      </CartComponentContext>
     </>
   )
 }

@@ -1,40 +1,22 @@
-import React from 'react'
-import { Card, Descriptions, Flex } from 'antd'
-import { Link } from 'react-router-dom'
+import React, { useRef } from 'react'
+import { Button, Card, Flex } from 'antd'
 import AddItemButton from '../AddItemButton/AddItemButton';
 import ItemQuantitySelector from '../ItemQuantitySelector/ItemQuantitySelector';
 import Description from '../Description/Description';
 const { Meta } = Card;
 
 const ItemDetail = ({item}) => {
+  //const [ selectedItem, setSelectedItem]
 
-  const itemDetail = [
-    {
-      key: '1',
-      label: 'Nombre',
-      children: item.name,
-    },
-    {
-      key: '2',
-      label: 'Categoria',
-      children: item.category,
-    },    
-    {
-      key: '3',
-      label: 'Descripción',
-      children: item.description,
-    },
-    {
-      key: '4',
-      label: 'Precio',
-      children: item.price,
-    },
-    {
-      key: '5',
-      label: 'Stock',
-      children: item.stock,
-    }
-  ]
+  const quantityRef = useRef(1)
+
+  const handleUpdateQuantity = (value) => {
+    quantityRef.current = value
+  }
+
+  const getUpdatedItem = () => {
+    return {...item, quantity: quantityRef.current}
+  }
 
   return (
     <>
@@ -48,8 +30,8 @@ const ItemDetail = ({item}) => {
             />
           }
           actions={[
-            <ItemQuantitySelector />,
-            <AddItemButton item={itemDetail} />
+            <ItemQuantitySelector handleUpdateQuantity={handleUpdateQuantity} />,
+            <AddItemButton getItem={getUpdatedItem} />
           ]}
         >
           <Meta
@@ -57,7 +39,10 @@ const ItemDetail = ({item}) => {
             description={item.description}
           />
         </Card>
-        <Description item={itemDetail} />
+        <Flex vertical gap={'large'}>
+          <Description item={item} />
+          <Button type="primary">Finalizar compra</Button>
+        </Flex>
       </Flex>
     </>
   )

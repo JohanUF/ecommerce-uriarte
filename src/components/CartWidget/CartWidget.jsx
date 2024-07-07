@@ -1,14 +1,20 @@
-import React from 'react'
+import { useContext } from 'react'
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
+import { CartContext } from '../../context/cartContext';
+import { Link } from 'react-router-dom';
 
 const CartWidget = () => {
+  const { cart } = useContext(CartContext)
+
   return (
     <>
-      <Button>
-        <ShoppingCartOutlined />
-        Carrito (5)
-      </Button>
+      <Link to={'/cart'}>
+        <Button>
+          <ShoppingCartOutlined />
+          Carrito ({ cart ? cart.length : 0 })
+        </Button>
+      </Link>
     </>
   )
 }
