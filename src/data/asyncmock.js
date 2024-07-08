@@ -1,3 +1,6 @@
+import { collection, doc, getDoc, getDocs, limit, query, where } from 'firebase/firestore'
+import { db } from '../firebase/client'
+
 const itemsList = [
     {
         id: 1,
@@ -91,27 +94,54 @@ const itemsList = [
     }
 ]
 
-export const getItems = (categoryId) => {
-    const result = categoryId ? itemsList.filter(item => item.category == categoryId) : itemsList
+export const getItems = async (categoryId) => {
 
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            result.length > 0 ?
-                resolve(result)
-                :
-                reject('No hay data')
-        }, 500)
-    })
+    if (!categoryId){
+        const productsRef= collection(db, "items")
+
+        const getProducts = async () => {
+            const data = await getDocs(productsRef)
+            const dataFilter = data.docs.map((doc)=>  ({...doc.data(), id: doc.id}))
+            return dataFilter
+        }
+        
+        return await getProducts()
+    }
+    else {
+        const productsRefFilter = query(
+            collection(db, "items"),
+            where("category", "==", categoryId),
+            limit(10)
+          )
+          const getProducts = async () => {
+            const data = await getDocs(productsRefFilter)
+            const dataFilter = data.docs.map((doc)=>  ({...doc.data(), id: doc.id}))
+            return dataFilter
+          }
+        return await getProducts()
+    }
 }
 
 export const getItemById = (itemId) => {
-    const result = itemsList.find(p => p.id == itemId)
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            result ?
-                resolve(result)
-                :
-                reject('No hay data')
-        }, 500)
-    })
+    const productRef = doc(db, "items", itemId)
+    getDoc(productRef).then((snapshot => {
+        if(snapshot.exists()){
+        const miProducto = {
+            id: snapshot.id,
+            ...snapshot.data()
+        }
+        console.log('valor de mi producto: ',miProducto)
+        return miProducto
+        }
+    }))
+
+    // const result = itemsList.find(p => p.id == itemId)
+    // return new Promise((resolve, reject) => {
+    //     setTimeout(() => {
+    //         result ?
+    //             resolve(result)
+    //             :
+    //             reject('No hay data')
+    //     }, 500)
+    // })
 }
