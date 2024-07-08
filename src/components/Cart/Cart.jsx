@@ -1,8 +1,11 @@
 import React, { useContext } from 'react'
 import { List, Card, Button, Flex } from 'antd';
 import { CartContext } from '../../context/cartContext';
-import Description from '../Description/Description';
 import { Link } from 'react-router-dom';
+import { Typography } from 'antd';
+import CartItem from '../CartItem/CartItem';
+
+const { Title } = Typography;
 
 
 const Cart = () => {
@@ -30,22 +33,10 @@ const Cart = () => {
         dataSource={cart}
         renderItem={(item) => (
             <List.Item>
-              <Flex gap={'large'}>
-                <Card
-                style={{
-                  width: 240,
-                }}
-                cover={<img alt="example" src={item.img} />}
-                actions={[
-                  <Button type="primary" onClick={() => { removeItem(item.id) }}>Eliminar producto</Button>
-                ]}>
-                  <Meta />
-                </Card>
-                <Description item={item}/>
-              </Flex>
+              <CartItem cartItem={item} cartRemoveItem={removeItem}/>
             </List.Item>
         )}
-      /> : <h3>{"El carrito está vacío. "}<Link to={'/'}>Volver a la tienda</Link></h3>}
+      /> : <Title level={3}>{"El carrito está vacío. "}<Link to={'/'}>Volver a la tienda</Link></Title >}
     </>
   )
 }

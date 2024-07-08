@@ -25,7 +25,7 @@ const Description = ({item}) => {
         label: 'Precio',
         children: item.price
       }
-    ];
+    ]
 
     if (item.quantity && item.quantity > 0) {
       itemDetail.push({

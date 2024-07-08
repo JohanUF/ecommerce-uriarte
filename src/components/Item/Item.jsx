@@ -19,7 +19,13 @@ const Item = ({item}) => {
         >
         <Meta
             title={item.name} 
-            description={item.description}
+            description= {
+              <>
+                <p>Categoría: {item.category}</p>
+                <p>Descripción: {item.description}</p>
+                <p>Precio: S/ {item.price}</p>
+              </>
+            }
         />
     </Card>
   )

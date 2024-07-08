@@ -5,6 +5,7 @@ import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailCont
 import { Typography } from 'antd'
 import { CartComponentContext } from './context/cartContext';
 import Cart from './components/Cart/Cart';
+import Checkout from './components/Checkout/Checkout';
 const { Title } = Typography
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
             <Route path='/category/:categoryId' element={<ItemListContainer />}></Route>
             <Route path='/item/:itemId' element={<ItemDetailContainer />}></Route>
             <Route path='/cart' element={<Cart />}></Route>
+            <Route path='/checkout' element={<Checkout/>}></Route>
           </Routes>
         </BrowserRouter>
       </CartComponentContext>
