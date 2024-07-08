@@ -2,11 +2,11 @@ import React, { useContext, useState } from 'react'
 import { Button } from 'antd';
 import { CartContext } from '../../context/cartContext';
 
-const AddItemButton = ({ getItem, setItemAdded }) => {
+const AddItemButton = ({ setItemState, item, getItemQuantity }) => {
   const { addItem, updateItem, isInCart } = useContext(CartContext)
   
   const handleClick = () => {
-    const item = getItem()
+    item = {...item, quantity: getItemQuantity()}
     
     if (isInCart(item.id)){
       updateItem(item)
@@ -15,8 +15,8 @@ const AddItemButton = ({ getItem, setItemAdded }) => {
       addItem(item)
     }
 
-    setItemAdded(item)
-  }
+    setItemState(item)
+  }  
 
   return (
     <Button type="primary" onClick={() => { handleClick() }}>Agregar al carrito</Button>

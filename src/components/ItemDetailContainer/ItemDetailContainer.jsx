@@ -8,9 +8,9 @@ const ItemDetailContainer = () => {
     const { itemId } = useParams()
 
     useEffect(() => {
-        setItem(getItemById(itemId))
-            //.then(res => setItem(res))
-            //.catch(err => console.error('Error al obtener los productos', err))
+        getItemById(itemId)
+          .then(res => setItem(res))
+          .catch(err => console.error('Error al obtener los productos', err))
     }, [])
     
   return (

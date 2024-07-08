@@ -124,16 +124,17 @@ export const getItems = async (categoryId) => {
 
 export const getItemById = (itemId) => {
     const productRef = doc(db, "items", itemId)
-    getDoc(productRef).then((snapshot => {
-        if(snapshot.exists()){
-        const miProducto = {
-            id: snapshot.id,
-            ...snapshot.data()
-        }
-        console.log('valor de mi producto: ',miProducto)
-        return miProducto
-        }
+    return getDoc(productRef)
+        .then((snapshot => {
+            if(snapshot.exists()){
+                const miProducto = {
+                    id: snapshot.id,
+                    ...snapshot.data()
+                }
+                return miProducto
+            }
     }))
+}
 
     // const result = itemsList.find(p => p.id == itemId)
     // return new Promise((resolve, reject) => {
@@ -144,4 +145,4 @@ export const getItemById = (itemId) => {
     //             reject('No hay data')
     //     }, 500)
     // })
-}
+// }
